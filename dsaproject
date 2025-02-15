@@ -1,0 +1,146 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class InventoryManagementSystem {
+    static List<Product> products = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    private static void display(){
+        String str = " " +
+                "1. add an item\n" + //
+                "2. display all the items\n" + //
+                "3. search an item\n" + //
+                "4. delete an item\n" + //
+                "5. update an item\n" + //
+                "6. calculate the inventory value\n" + //
+                "7. exit the applicationjust input!";
+
+        System.out.println(str);
+    }
+
+    private static void addItems(){
+        // id, name, quantity, price;
+        System.out.print("enter id: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("enter name: ");
+        String name = scanner.nextLine();
+
+
+        System.out.print("enter quantity: ");
+        int quantity = scanner.nextInt();
+
+
+        System.out.print("enter price: ");
+        float price = scanner.nextFloat();
+
+        Product product = new Product(id, name, price,quantity);
+        products.add(product);
+
+    }
+
+    private static void displayItems(){
+        for(Product product:products){
+            System.out.println("Id is"+product.getId());
+            System.out.println("Product Name is"+product.getName());
+            System.out.println("Price is"+product.getPrice());
+            System.out.println("Quantity is"+product.getQuantity());
+
+        }
+    }
+    private static void search(){
+        System.out.println("Enter the id of the product you want to search");
+        int id = scanner.nextInt();
+        for(Product product:products){
+            if(product.getId() == id){
+                System.out.println("Id is"+product.getId());
+                System.out.println("Product Name is"+product.getName());
+                System.out.println("Price is"+product.getPrice());
+                System.out.println("Quantity is"+product.getQuantity());
+            }
+        }
+    }
+    private static void deleteItem(){
+        System.out.println("Enter the id of the product you want to delete");
+        int id = scanner.nextInt();
+        for(Product product:products){
+            if(product.getId() == id){
+                products.remove(product);
+            }
+        }
+    }
+
+
+    private static void updateItem(){
+        System.out.println("Enter the id of the product you want to update");
+        int id = scanner.nextInt();
+        for(Product product:products){
+            if(product.getId() == id){
+              boolean sd= true;
+              int op;
+              while(sd){
+                op=scanner.nextInt();
+                switch(op){
+                    case 1:
+                        System.err.println("Enter the new name");
+                        String name=scanner.nextLine();
+                        product.setName(name);
+                        break;
+                    case 2:
+                        System.err.println("Enter the new quantity");
+                        int quantity=scanner.nextInt();
+                        product.setQuantity(quantity);
+                        break;
+                    case 3:
+                        System.err.println("Enter the new price");
+                        int price=scanner.nextInt();
+                        product.setPrice(price);
+                        break;
+                    case 4:
+                        sd=false;
+                        break;
+                }
+              }
+
+
+
+            }
+        }
+    }
+    public static void main(String[] args) {
+        
+
+        int choice;
+        do{
+            display();
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    addItems();
+                    break;
+                case 2:
+                    displayItems();
+                    break;
+                case 3: 
+                    search();
+                    break;
+                case 4:
+                    deleteItem();
+                    break;
+                case 5:
+                    // updateItem();
+                    break;
+                case 6:
+                    // calculateTotal();
+                    break;
+                case 7: 
+                    System.exit(0);
+                    break;
+                default: 
+                    System.out.println("invalid choice");
+            }
+    }while (choice!=7);
+    }
+}
